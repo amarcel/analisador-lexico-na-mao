@@ -25,7 +25,7 @@ public class LeitorArquivo {
 
     private int lerCharDoBuffer() {
         int ret = bufferDeLeitura[ponteiro];
-        System.out.print((char) ret);
+        System.out.println(this);
         incrementarPonteiro();
         return ret;
     }
@@ -124,7 +124,7 @@ public class LeitorArquivo {
             }
         }
         ret += "]\n";
-        ret += "";
+        ret += "        ";
         for (int i = 0; i < TAMANHO_BUFFER * 2; i++) {
             if (i == inicioLexema && i == ponteiro) {
                 ret += "%";
