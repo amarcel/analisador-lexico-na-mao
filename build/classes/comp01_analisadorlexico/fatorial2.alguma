@@ -1,0 +1,15 @@
+:DECLARATIONS
+argumento: INTEGER
+fatorial: INTEGER
+
+:ALGORITHM
+% Calcula o fatorial de um numero inteiro
+READ argumento SET argumento TO fatorial
+IF argumento $eq 0 THEN SET 1 TO fatorial
+
+WHILE argumento $lt 100
+ BEGIN
+  SET fatorial * (argumento - 1) TO fatorial
+  SET argumento - 1 TO argumento
+ END
+PRINT fatorial

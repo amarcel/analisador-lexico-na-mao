@@ -121,27 +121,45 @@ public class AlgumaLexico {
     private Token operadorRelacional() {
         int caractereLido = leitor.lerProximoCaractere();
         char c = (char) caractereLido;
-        if (c == '<') {
+        
+        if (c == '$') {
             c = (char) leitor.lerProximoCaractere();
-            if (c == '>') {
-                return new Token(TipoToken.OpRelDif, leitor.getLexema());
-            } else if (c == '=') {
-                return new Token(TipoToken.OpRelMenorIgual, leitor.getLexema());
-            } else {
-                leitor.retroceder();
-                return new Token(TipoToken.OpRelMenor, leitor.getLexema());
-            }
-        } else if (c == '=') {
-            return new Token(TipoToken.OpRelIgual, leitor.getLexema());
-        } else if (c == '>') {
-            c = (char) leitor.lerProximoCaractere();
-            if (c == '=') {
-                return new Token(TipoToken.OpRelMaiorIgual, leitor.getLexema());
-            } else {
-                leitor.retroceder();
-                return new Token(TipoToken.OpRelMaior, leitor.getLexema());
+            if (c == 'l') {
+                c = (char) leitor.lerProximoCaractere();
+                if (c == 't') {
+                    c = (char) leitor.lerProximoCaractere();
+                    if (c == 'e') {
+                        return new Token(TipoToken.OpRelMenorIgual, "$lte");
+                    }
+                    leitor.retroceder();
+                    return new Token(TipoToken.OpRelMenor, "$lt");
+                }
+            } else if (c == 'g') {
+                c = (char) leitor.lerProximoCaractere();
+                if (c == 't') {
+                    c = (char) leitor.lerProximoCaractere();
+                    if (c == 'e') {
+                        return new Token(TipoToken.OpRelMaiorIgual, "$gte");
+                    }
+                    leitor.retroceder();
+                    return new Token(TipoToken.OpRelMaior, "$gte");
+                }
+            } else if (c == 'e') {
+                c = (char) leitor.lerProximoCaractere();
+                if (c == 'q') {
+                    return new Token(TipoToken.OpRelIgual, "$eq");
+                }
+            } else if (c == 'd') {
+                c = (char) leitor.lerProximoCaractere();
+                if (c == 'i') {
+                    c = (char) leitor.lerProximoCaractere();
+                    if (c == 'f') {
+                        return new Token(TipoToken.OpRelIgual, "$dif");
+                    }
+                }
             }
         }
+        
         return null;
     }
 
@@ -258,35 +276,35 @@ public class AlgumaLexico {
             if (!Character.isLetter(c)) {
                 leitor.retroceder();
                 String lexema = leitor.getLexema();
-                if (lexema.equals("DECLARACOES")) {
+                if (lexema.equals("DECLARATIONS")) {
                     return new Token(TipoToken.PCDeclaracoes, lexema);
-                } else if (lexema.equals("ALGORITMO")) {
+                } else if (lexema.equals("ALGORITHM")) {
                     return new Token(TipoToken.PCAlgoritmo, lexema);
-                } else if (lexema.equals("INT")) {
+                } else if (lexema.equals("INTEGER")) {
                     return new Token(TipoToken.PCInteiro, lexema);
-                } else if (lexema.equals("REAL")) {
+                } else if (lexema.equals("FLOAT")) {
                     return new Token(TipoToken.PCReal, lexema);
-                } else if (lexema.equals("ATRIBUIR")) {
+                } else if (lexema.equals("SET")) {
                     return new Token(TipoToken.PCAtribuir, lexema);
-                } else if (lexema.equals("A")) {
+                } else if (lexema.equals("TO")) {
                     return new Token(TipoToken.PCA, lexema);
-                } else if (lexema.equals("LER")) {
+                } else if (lexema.equals("READ")) {
                     return new Token(TipoToken.PCLer, lexema);
-                } else if (lexema.equals("IMPRIMIR")) {
+                } else if (lexema.equals("PRINT")) {
                     return new Token(TipoToken.PCImprimir, lexema);
-                } else if (lexema.equals("SE")) {
+                } else if (lexema.equals("IF")) {
                     return new Token(TipoToken.PCSe, lexema);
-                } else if (lexema.equals("ENTAO")) {
+                } else if (lexema.equals("THEN")) {
                     return new Token(TipoToken.PCEntao, lexema);
-                } else if (lexema.equals("ENQUANTO")) {
+                } else if (lexema.equals("WHILE")) {
                     return new Token(TipoToken.PCEnquanto, lexema);
-                } else if (lexema.equals("INICIO")) {
+                } else if (lexema.equals("BEGIN")) {
                     return new Token(TipoToken.PCInicio, lexema);
-                } else if (lexema.equals("FIM")) {
+                } else if (lexema.equals("END")) {
                     return new Token(TipoToken.PCFim, lexema);
-                } else if (lexema.equals("E")) {
+                } else if (lexema.equals("AND")) {
                     return new Token(TipoToken.OpBoolE, lexema);
-                } else if (lexema.equals("OU")) {
+                } else if (lexema.equals("OR")) {
                     return new Token(TipoToken.OpBoolOu, lexema);
                 } else {
                     return null;
